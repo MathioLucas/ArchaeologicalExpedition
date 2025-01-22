@@ -29,6 +29,21 @@ class Expedition:
         print("\nAvailable team members to hire:")
         for role in roles:
             print(f"{role} - ${costs[role]}")
+while budget >= min(costs.values()):
+            choice = input("\nEnter the role you want to hire (or 'done' to finish hiring): ")
+            if choice in roles:
+                if budget >= costs[choice]:
+                    self.team.append(choice)
+                    budget -= costs[choice]
+                    print(f"Hired a {choice}. Remaining budget for team: ${budget}")
+                else:
+                    print("Insufficient budget for this team member.")
+            elif choice.lower() == 'done':
+                break
+            else:
+                print("Invalid choice. Please select from the available roles.")
+
+    
 
         
     
