@@ -23,7 +23,14 @@ class Expedition:
         self.hire_team(team_budget)
         self.buy_equipment(equipment_budget)
         self.purchase_supplies(supplies_budget)
+    def hire_team(self, budget):
+        roles = ['Historian', 'Archaeologist', 'Digger', 'Conservator', 'Guide']
+        costs = {'Historian': 5000, 'Archaeologist': 7000, 'Digger': 3000, 'Conservator': 6000, 'Guide': 4000}
+        print("\nAvailable team members to hire:")
+        for role in roles:
+            print(f"{role} - ${costs[role]}")
 
+        
     
 
    
