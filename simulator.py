@@ -42,6 +42,67 @@ while budget >= min(costs.values()):
                 break
             else:
                 print("Invalid choice. Please select from the available roles.")
+def buy_equipment(self, budget):
+        equipment_list = {'Shovel': 100, 'Brush': 50, 'Screen': 150, 'Camera': 500, 'GPS': 1000}
+        print("\nAvailable equipment to buy:")
+        for item, cost in equipment_list.items():
+            print(f"{item} - ${cost}")
+
+        while budget >= min(equipment_list.values()):
+            choice = input("\nEnter the equipment you want to buy (or 'done' to finish purchasing): ")
+            if choice in equipment_list:
+                if budget >= equipment_list[choice]:
+                    self.equipment.append(choice)
+                    budget -= equipment_list[choice]
+                    print(f"Purchased {choice}. Remaining budget for equipment: ${budget}")
+                else:
+                    print("Insufficient budget for this equipment.")
+            elif choice.lower() == 'done':
+                break
+            else:
+                print("Invalid choice. Please select from the available equipment.")
+
+    def purchase_supplies(self, budget):
+        print(f"\nPurchased supplies worth ${budget}. Supplies level is now at {self.supplies}%.")
+
+    def start_expedition(self):
+        print("\nStarting your archaeological expedition...")
+        for day in range(1, int(self.time_remaining)+1):
+            print(f"\nDay {day}:")
+            event = random.choice(['good_weather', 'bad_weather', 'find_artifact', 'equipment_failure', 'team_conflict', 'nothing'])
+            if event == 'good_weather':
+                print("The weather is perfect for digging.")
+            elif event == 'bad_weather':
+                print("Bad weather has delayed your progress.")
+                self.time_remaining -= 1
+                self.supplies -= 5
+            elif event == 'find_artifact':
+                artifact = self.discover_artifact()
+                self.artifacts.append(artifact)
+                print(f"You have discovered: {artifact}!")
+                self.reputation += 10
+            elif event == 'equipment_failure':
+                if self.equipment:
+                    broken_equipment = self.equipment.pop()
+                    print(f"Your {broken_equipment} has broken down.")
+                else:
+                    print("An equipment failure occurred, but you have no equipment left!")
+            elif event == 'team_conflict':
+                print("There is a conflict among your team members.")
+                self.handle_team_conflict()
+            else:
+                print("The day passes without significant events.")
+            self.time_remaining -= 1
+            self.supplies -= 2
+            if self.supplies <= 0:
+                print("You have run out of supplies!")
+                break
+            if self.time_remaining <= 0:
+                print("You have run out of time!")
+                break
+        self.end_expedition()
+
+    
 
     
 
